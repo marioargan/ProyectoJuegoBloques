@@ -4,10 +4,10 @@ import java.awt.BorderLayout;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PanelDeJuego {
 	int x1 = 130;
@@ -30,11 +30,22 @@ public class PanelDeJuego {
 		window.setSize(800, 600);
 		window.setLocationRelativeTo(null);
 		window.setLayout(new BorderLayout());
-		 
+		
+		
+        
+           
+        
+
+
+        
+        
+			
+		
 		//Crear bloques removibles
 		Paint pintura = new Paint();
-        for (int i = 0; i < 3; i++) { // Dos filas de bloques
-            for (int j = 0; j < 10; j++) { // Cinco bloques por fila
+		
+        for (int i = 0; i < 3; i++) { // 3 filas de bloques
+            for (int j = 0; j < 10; j++) { // 10 bloques por fila
             	pintura.bloques.add(new Rectangle(40 + j * (60 + 10), 20 + i * ( 20+ 10),60,20));
             }
         }
@@ -42,7 +53,7 @@ public class PanelDeJuego {
  	
  	     
 		//Crear y añadir Rectangulo
-		
+		Player player = new Player();
 		window.add(pintura);
 		//Movimiento de player
 		 window.addKeyListener(new KeyListener() {
@@ -51,10 +62,10 @@ public class PanelDeJuego {
 	                int key = e.getKeyCode(); // Código de la tecla presionada
 	                switch (key) {
 	                    case KeyEvent.VK_LEFT: // Flecha hacia la izquierda
-	                        pintura.movePlayer(-20);
+	                        pintura.movePlayer(-30);
 	                        break;
 	                    case KeyEvent.VK_RIGHT: // Flecha hacia la derecha
-	                        pintura.movePlayer(20);
+	                        pintura.movePlayer(30);
 	                        break;
 	                }
 	                
@@ -77,6 +88,9 @@ public class PanelDeJuego {
 	        JLabel vidas = new JLabel();
 	        vidas.setText("Vidas: " + String.valueOf(numVidas));
 	        pintura.add(vidas);
+	        
+	       
+	       
 		  // Hilo para mover la bola
 		
 	        new Thread(() -> {
@@ -103,6 +117,18 @@ public class PanelDeJuego {
 	                    ballYDirection *= -1;
 	                    pintura.ballPosition.y = pintura.playerPosition.y - 30;
 	                }
+	                JLabel texto = new JLabel();
+	    	        JPanel panel3 = new JPanel();
+	    	        
+	    	        if (numVidas==0) {
+	      	        	 texto.setText("Has Perdido"); 
+	      	        	 panel3.add(texto);
+	      	        	 panel3.setVisible(true);
+	      	        	 pintura.setVisible(false);
+	      	        	 window.add(panel3);
+	                   }
+	    	      
+	   	        
 	                pintura.bloques.removeIf(block -> {
 	                    if (pintura.ballPosition.intersects(block)) {
 	                        ballYDirection *= -1;
@@ -123,6 +149,8 @@ public class PanelDeJuego {
 	            
 	        }).start();
 	        
+	        pintura.setVisible(true);
+	
 	        
 	        
 	        

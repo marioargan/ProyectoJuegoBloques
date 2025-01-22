@@ -11,7 +11,7 @@ public class Paint extends JPanel{
 	Rectangle playerPosition = new Rectangle(130,500,120,23);
 	int numeroBloques  =30;
 	ArrayList<Rectangle> bloques = new ArrayList<Rectangle>();
-	Rectangle ballPosition = new Rectangle(400,200,23,23);
+	Rectangle ballPosition = new Rectangle(400,100,23,23);
 	
 	
 	
